@@ -1,6 +1,36 @@
+server:
+  port: 8080
+  servlet:
+    context-path: / #내 프로젝트 기본 진입점
+#    context-path: /feelcheck #내 프로젝트 기본 진입점
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/  #앞에 붙여주는거
+      suffix: .jsp             #뒤에 붙여주는거
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/feelcheck?serverTimezone=Asia/Seoul
     username: feelcheck
-    password: feelcheck1234
+    password: ${MYSQL_PASSWORD}
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # 변수명 그대로 field명을 지어준다는 전략
+      use-new-id-generator-mappings: false
+    show-sql: true # 이거 false로 하면 sql문 동작하는거 서버로그에 안나타남
+    properties:
+      hibernate.format_sql: true
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
