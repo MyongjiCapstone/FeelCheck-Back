@@ -2,12 +2,14 @@ package com.capstone.feelcheck.controller;
 
 import com.capstone.feelcheck.dto.CommentDeleteDto;
 import com.capstone.feelcheck.dto.CommentDto;
+import com.capstone.feelcheck.dto.CommentGetDto;
 import com.capstone.feelcheck.dto.ResponseDto;
 import com.capstone.feelcheck.model.Comment;
 import com.capstone.feelcheck.model.Emotion;
 import com.capstone.feelcheck.service.CommentService;
 import com.capstone.feelcheck.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,8 +35,8 @@ public class CommentController {
         return new ResponseDto(HttpStatus.OK.value(), "댓글이 성공적으로 작성되었습니다.", null);
     }
     @GetMapping("/api/comments")
-    public ResponseDto getComments(Emotion emotion){
-        List<Comment> comments = commentService.getComments(emotion);
+    public ResponseDto getComments(CommentGetDto commentGetDto){
+        Page<Comment> comments = commentService.getComments(commentGetDto);
         return new ResponseDto(HttpStatus.OK.value(), null, comments);
     }
     @DeleteMapping("/api/comments")

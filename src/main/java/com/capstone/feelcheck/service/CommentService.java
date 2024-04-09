@@ -2,12 +2,17 @@ package com.capstone.feelcheck.service;
 
 import com.capstone.feelcheck.dto.CommentDeleteDto;
 import com.capstone.feelcheck.dto.CommentDto;
+import com.capstone.feelcheck.dto.CommentGetDto;
 import com.capstone.feelcheck.model.Comment;
 import com.capstone.feelcheck.model.Emotion;
 import com.capstone.feelcheck.model.User;
 import com.capstone.feelcheck.repository.CommentRepository;
 import com.capstone.feelcheck.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,8 +36,11 @@ public class CommentService {
         comment.setComment(commentDto.getComment());
         commentRepository.save(comment);
     }
-    public List<Comment> getComments(Emotion emotion){
-        return commentRepository.findAllByEmotion(emotion);
+    public Page<Comment> getComments(CommentGetDto commentGetDto){
+        int page = commentGetDto.getPage() - 1;
+        int pageAmount = 8;
+        Pageable pageable = PageRequest.of(page, pageAmount);
+        return commentRepository.findAllByEmotion(commentGetDto.getEmotion(), pageable);
     }
     public void deleteComment(CommentDeleteDto commentDeleteDto) {
         Long commentId = commentDeleteDto.getCommentId();

@@ -29,7 +29,8 @@ public class CrawlingService {
             String crawlingURL = "https://www.google.com/search?q=" + encodedKeyword + "&tbm=vid";
 
             Document document = Jsoup.connect(crawlingURL).get();
-/*            Element images = document.selectFirst("#rso > div:nth-child(1) > div > div > div > div > div > div:nth-child(1) > div.iHxmLe > a > div > div > div.uhHOwf.BYbUcd > img");
+ /*           Element images = document.selectFirst("#rso > div:nth-child(1) > div > div > div > div > div > div:nth-child(1) > div.iHxmLe > a > div > div > div.uhHOwf.BYbUcd > img");
+            Element url = document.selectFirst("#rso > div:nth-child(1) > div > div > div > div > div > div:nth-child(1) > div.xe8e1b > div > div > span > a");
             music.setImage(images.attr("src"));
             music.setTitle(recommend);
             music.setUrl(url.attr("href"));
@@ -60,6 +61,9 @@ public class CrawlingService {
                         String nodeData = node.getWholeData();
                         nodeData = nodeData.replace("var ytInitialData = ", "");
                         nodeData = nodeData.replace(nodeData.substring(nodeData.length() - 1), "");
+                        //test
+                        Object test = JsonPath.read(nodeData, "$.contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].videoRenderer");
+                        System.out.println(test);
                         // 썸네일 이미지
                         Object thumbnail = JsonPath.read(nodeData, "$.contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].videoRenderer.thumbnail.thumbnails[0].url");
                         // 유튜브 제목
@@ -71,7 +75,8 @@ public class CrawlingService {
                         music.setUrl((String)link);
                     }
                 }
-            }*/
+            }
+            musicList.add(music);*/
         }
         return musicList;
     }
