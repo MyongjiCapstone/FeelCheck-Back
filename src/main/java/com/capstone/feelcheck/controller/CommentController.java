@@ -40,7 +40,8 @@ public class CommentController {
         return new ResponseDto(HttpStatus.OK.value(), null, comments);
     }
     @DeleteMapping("/api/comments")
-    public ResponseDto deleteComment(@RequestBody CommentDeleteDto commentDeleteDto){
+    public ResponseDto deleteComment(CommentDeleteDto commentDeleteDto){
+        System.out.println(commentDeleteDto);
         Boolean validateCheck = userService.validateCheck(commentDeleteDto.getNickname());
         if (!validateCheck){
             return new ResponseDto(HttpStatus.UNAUTHORIZED.value(), "사용자가 존재하지 않습니다", null);

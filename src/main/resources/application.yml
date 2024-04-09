@@ -27,7 +27,7 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # 변수명 그대로 field명을 지어준다는 전략
       use-new-id-generator-mappings: false
-    show-sql: true # 이거 false로 하면 sql문 동작하는거 서버로그에 안나타남
+    show-sql: false # 이거 false로 하면 sql문 동작하는거 서버로그에 안나타남
     properties:
       hibernate.format_sql: true
 

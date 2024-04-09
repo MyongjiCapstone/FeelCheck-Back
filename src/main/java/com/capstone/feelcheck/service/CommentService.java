@@ -37,7 +37,7 @@ public class CommentService {
     }
     public List<Comment> getComments(CommentGetDto commentGetDto){
         int page = commentGetDto.getPage() - 1;
-        int pageAmount = 8;
+        int pageAmount = 10;
         Pageable pageable = PageRequest.of(page, pageAmount, Sort.by(Sort.Direction.DESC, "createDate"));
         return commentRepository.findAllByEmotion(commentGetDto.getEmotion(), pageable).getContent();
     }
