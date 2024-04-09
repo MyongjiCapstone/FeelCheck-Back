@@ -15,8 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CommentService {
@@ -36,11 +35,11 @@ public class CommentService {
         comment.setComment(commentDto.getComment());
         commentRepository.save(comment);
     }
-    public Page<Comment> getComments(CommentGetDto commentGetDto){
+    public List<Comment> getComments(CommentGetDto commentGetDto){
         int page = commentGetDto.getPage() - 1;
         int pageAmount = 8;
-        Pageable pageable = PageRequest.of(page, pageAmount);
-        return commentRepository.findAllByEmotion(commentGetDto.getEmotion(), pageable);
+        Pageable pageable = PageRequest.of(page, pageAmount, Sort.by(Sort.Direction.DESC, "createDate"));
+        return commentRepository.findAllByEmotion(commentGetDto.getEmotion(), pageable).getContent();
     }
     public void deleteComment(CommentDeleteDto commentDeleteDto) {
         Long commentId = commentDeleteDto.getCommentId();

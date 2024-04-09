@@ -36,7 +36,7 @@ public class CommentController {
     }
     @GetMapping("/api/comments")
     public ResponseDto getComments(CommentGetDto commentGetDto){
-        Page<Comment> comments = commentService.getComments(commentGetDto);
+        List<Comment> comments = commentService.getComments(commentGetDto);
         return new ResponseDto(HttpStatus.OK.value(), null, comments);
     }
     @DeleteMapping("/api/comments")
